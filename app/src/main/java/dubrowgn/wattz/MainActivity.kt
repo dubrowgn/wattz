@@ -59,7 +59,7 @@ class MainActivity : Activity() {
             "Temperature: ${fmt(battery.celsius)}°C\n" +
             "Volts: ${fmt(battery.volts)}V\n" +
             "Power: ${txtWatts}W\n" +
-            "Time to Full: ${fmt(battery.secondsUntilCharged)}s\n"
+            "Time to Full: ${fmtSeconds(battery.secondsUntilCharged)}\n"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

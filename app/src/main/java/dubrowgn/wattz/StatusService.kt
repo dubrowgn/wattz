@@ -103,6 +103,15 @@ class StatusService : Service() {
         noteBuilder
             .setContentTitle("Battery Draw: $txtWatts W")
             .setSmallIcon(renderIcon(txtWatts, "w"))
+
+        noteBuilder.setContentText(
+            when(battery.secondsUntilCharged) {
+                null -> ""
+                0.0 -> "fully charged"
+                else -> "${fmtSeconds(battery.secondsUntilCharged)} until full charge"
+            }
+        )
+
         noteMgr.notify(NoteId, noteBuilder.build())
     }
 }
