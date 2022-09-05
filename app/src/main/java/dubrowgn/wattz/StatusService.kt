@@ -76,7 +76,7 @@ class StatusService : Service() {
 
         startForeground(NoteId, noteBuilder.build())
 
-        return rc;
+        return START_STICKY;
     }
 
     override fun onDestroy() {
