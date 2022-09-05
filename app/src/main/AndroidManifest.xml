@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wattz">
 
-        <service android:name=".StatusService" />
+        <service
+            android:name=".StatusService"
+            android:process=":batteryStatus"
+        />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -68,8 +68,9 @@ class StatusService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val rc = super.onStartCommand(intent, flags, startId)
-        debug("onStartCommand() -> $rc")
+        debug("onStartCommand()")
+
+        super.onStartCommand(intent, flags, startId)
 
         init()
         task.start()
