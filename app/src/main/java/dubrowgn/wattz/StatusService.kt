@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.graphics.*
 import android.graphics.drawable.Icon
 import android.os.IBinder
+import android.util.Log
 
 
 class StatusService : Service() {
@@ -17,6 +18,10 @@ class StatusService : Service() {
     private lateinit var noteMgr: NotificationManager
 
     private val task = PeriodicTask({ update() }, intervalMs)
+
+    private fun debug(msg: String) {
+        Log.d(this::class.java.name, msg)
+    }
 
     inner class ScreenReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -63,14 +68,21 @@ class StatusService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        trace()
+        val rc = super.onStartCommand(intent, flags, startId)
+        debug("onStartCommand() -> $rc")
 
         init()
         task.start()
 
         startForeground(NoteId, noteBuilder.build())
 
-        return super.onStartCommand(intent, flags, startId)
+        return rc;
+    }
+
+    override fun onDestroy() {
+        debug("onDestroy()")
+
+        super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -96,7 +108,7 @@ class StatusService : Service() {
     }
 
     private fun update() {
-        trace()
+        debug("update()")
 
         val txtWatts = fmt(battery.watts)
 

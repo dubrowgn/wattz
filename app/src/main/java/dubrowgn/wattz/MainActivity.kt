@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.*
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,6 +17,10 @@ class MainActivity : Activity() {
     private lateinit var battery: Battery
     private val task = PeriodicTask({ update() }, intervalMs)
     private lateinit var txtDetails: TextView
+
+    private fun debug(msg: String) {
+        Log.d(this::class.java.name, msg)
+    }
 
     private fun serviceRunning(): Boolean {
         val serviceName = StatusService::class.java.name
@@ -47,7 +52,7 @@ class MainActivity : Activity() {
     }
 
     private fun update() {
-        trace()
+        debug("update()")
 
         val txtWatts = fmt(battery.watts)
 
@@ -63,7 +68,7 @@ class MainActivity : Activity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        trace()
+        debug("onCreate()")
 
         super.onCreate(savedInstanceState)
 
@@ -71,20 +76,20 @@ class MainActivity : Activity() {
     }
 
     override fun onDestroy() {
-        trace()
+        debug("onDestroy()")
 
         super.onDestroy()
     }
 
     override fun onPause() {
-        trace()
+        debug("onPause()")
 
         task.stop()
         super.onPause()
     }
 
     override fun onResume() {
-        trace()
+        debug("onResume()")
 
         super.onResume()
         task.start()
