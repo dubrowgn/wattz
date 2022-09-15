@@ -1,0 +1,3 @@
+Initial Release
+* Battery current status bar indicator
+* In-app detailed battery metrics

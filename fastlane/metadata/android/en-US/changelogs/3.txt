@@ -1,0 +1,1 @@
+* Internal changes to support release on F-Droid
