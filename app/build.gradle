@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId "dubrowgn.wattz"
-        minSdk 29
-        targetSdk 29
+        minSdk 28
+        targetSdk 32
         versionCode 3
         versionName "1.3"
 
