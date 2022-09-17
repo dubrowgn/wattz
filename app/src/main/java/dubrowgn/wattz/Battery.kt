@@ -33,6 +33,8 @@ class Battery(ctx: Context) {
     }
 
     private fun fromMillis(v: Double?) : Double? {
+        if (v?.compareTo(5.0) < 0)
+            return v
         return v?.div(1_000.0)
     }
 
