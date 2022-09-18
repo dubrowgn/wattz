@@ -5,10 +5,23 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import kotlin.math.abs
 
 class Battery(ctx: Context) {
+    private var ampScalar = 1.0
     private val mgr = ctx.getSystemService(Activity.BATTERY_SERVICE) as BatteryManager
     private val intent = ctx.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+
+    // Current is defined as uA in
+    // https://developer.android.com/reference/android/os/BatteryManager#BATTERY_PROPERTY_CURRENT_NOW,
+    // but some devices report other units. Dynamically detect the correct units by assuming the
+    // value is in A, and dividing by orders of 1000 until a reasonable value is found.
+    // See: https://github.com/dubrowgn/wattz/issues/5
+    private fun tuneAmpScalar(amps: Double) {
+        while (abs(amps * ampScalar) > 100.0) {
+            ampScalar /= 1_000.0
+        }
+    }
 
     private fun prop(id: Int): Double {
         return mgr.getLongProperty(id).toDouble()
@@ -36,9 +49,17 @@ class Battery(ctx: Context) {
         return v?.div(1_000.0)
     }
 
-    val microamps : Double? get() = -1.0 * prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
-    val milliamps : Double? get() = fromMillis(microamps)
-    val amps : Double? get() = fromMicros(microamps)
+    private fun toMillis(v: Double?) : Double? {
+        return v?.times(1_000.0)
+    }
+
+    val milliamps : Double? get() = toMillis(amps)
+    val amps : Double get() {
+        val amps = -1.0 * prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
+        tuneAmpScalar(amps)
+
+        return amps * ampScalar
+    }
 
     val millivolts : Double? get() = prop(BatteryManager.EXTRA_VOLTAGE)
     val volts : Double? get() = fromMillis(millivolts)
