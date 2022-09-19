@@ -71,9 +71,17 @@ class Battery(ctx: Context) {
 
     val celsius : Double? get() = prop(BatteryManager.EXTRA_TEMPERATURE)?.div(10.0)
 
-    val charging : Boolean? get() = mgr.isCharging
+    val charging : Boolean get() = mgr.isCharging
     val secondsUntilCharged: Double? get() {
+        // Some devices incorrectly report "0 seconds to full" when not charging,
+        // so ensure we are actually charging first.
+        if (!charging)
+            return null
+
         val secs = mgr.computeChargeTimeRemaining()
-        return if(secs == -1L) null else secs.toDouble().div(1_000.0)
+        if (secs == -1L)
+            return null
+
+        return fromMillis(secs.toDouble())
     }
 }
