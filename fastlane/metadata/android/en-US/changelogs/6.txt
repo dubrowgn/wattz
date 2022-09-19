@@ -1,0 +1,2 @@
+* Add work around for devices which incorrectly report "0 seconds to charged" when not charging - https://github.com/dubrowgn/wattz/issues/5,  https://github.com/dubrowgn/wattz/issues/8
+* Add work around for devices which always report false for "is charging" - https://github.com/dubrowgn/wattz/issues/5,  https://github.com/dubrowgn/wattz/issues/8
