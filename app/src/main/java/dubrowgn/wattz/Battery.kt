@@ -49,11 +49,11 @@ class Battery(ctx: Context) {
         return v?.div(1_000.0)
     }
 
-    private fun toMillis(v: Double?) : Double? {
-        return v?.times(1_000.0)
+    private fun toMillis(v: Double) : Double {
+        return v.times(1_000.0)
     }
 
-    val milliamps : Double? get() = toMillis(amps)
+    val milliamps : Double get() = toMillis(amps)
     val amps : Double get() {
         val amps = -1.0 * prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
         tuneAmpScalar(amps)
@@ -64,14 +64,15 @@ class Battery(ctx: Context) {
     val millivolts : Double? get() = prop(BatteryManager.EXTRA_VOLTAGE)
     val volts : Double? get() = fromMillis(millivolts)
 
-    val milliwatts : Double? get() = milliamps?.times(volts)
-    val watts : Double? get() = amps?.times(volts)
+    val milliwatts : Double? get() = milliamps.times(volts)
+    val watts : Double? get() = amps.times(volts)
 
     val levelAmpHours : Double? get() = fromMicros(prop(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER))
 
     val celsius : Double? get() = prop(BatteryManager.EXTRA_TEMPERATURE)?.div(10.0)
 
-    val charging : Boolean get() = mgr.isCharging
+    // Some devices always report false for isCharging, so fall back to battery current detection
+    val charging : Boolean get() = mgr.isCharging || milliamps < 1.0
     val secondsUntilCharged: Double? get() {
         // Some devices incorrectly report "0 seconds to full" when not charging,
         // so ensure we are actually charging first.
