@@ -1,0 +1,2 @@
+* Add "Charging Since" field to main app
+* Only show "Time to Full" field in main app if actually charging
