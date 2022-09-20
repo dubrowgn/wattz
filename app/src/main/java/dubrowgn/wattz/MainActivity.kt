@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 const val NoteChannelId = "wattz.status"
 const val NoteId = 1
@@ -17,6 +19,7 @@ class MainActivity : Activity() {
     private lateinit var battery: Battery
     private val task = PeriodicTask({ update() }, intervalMs)
     private lateinit var txtDetails: TextView
+    private var pluggedInAt: LocalDateTime? = null
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
@@ -54,7 +57,18 @@ class MainActivity : Activity() {
     private fun update() {
         debug("update()")
 
-        val txtWatts = fmt(battery.watts)
+        if (pluggedInAt == null && battery.charging)
+            pluggedInAt = LocalDateTime.now()
+        else if (pluggedInAt != null && !battery.charging)
+            pluggedInAt = null
+
+        var chargeStr = ""
+        if (battery.charging) {
+            val dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            chargeStr =
+                "Charging Since: ${pluggedInAt!!.format(dateFmt)}\n" +
+                "Time to Full: ${fmtSeconds(battery.secondsUntilCharged)}\n"
+        }
 
         @SuppressLint("SetTextI18n")
         txtDetails.text =
@@ -63,8 +77,8 @@ class MainActivity : Activity() {
             "Current: ${fmt(battery.amps)}A\n" +
             "Temperature: ${fmt(battery.celsius)}°C\n" +
             "Volts: ${fmt(battery.volts)}V\n" +
-            "Power: ${txtWatts}W\n" +
-            "Time to Full: ${fmtSeconds(battery.secondsUntilCharged)}\n"
+            "Power: ${fmt(battery.watts)}W\n" +
+            chargeStr
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
