@@ -9,18 +9,34 @@ import android.graphics.*
 import android.graphics.drawable.Icon
 import android.os.IBinder
 import android.util.Log
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 
 class StatusService : Service() {
     private lateinit var battery: Battery
-
     private lateinit var noteBuilder: Notification.Builder
     private lateinit var noteMgr: NotificationManager
-
     private val task = PeriodicTask({ update() }, intervalMs)
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
+    }
+
+    private fun writePluggedInAt(dt: ZonedDateTime?) {
+        getSharedPreferences(prefsName, MODE_MULTI_PROCESS)
+            .edit()
+            .putString("pluggedInAt", dt?.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
+            .commit()
+    }
+
+    inner class PowerConnectionReceiver: BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            when (intent.action) {
+                Intent.ACTION_POWER_CONNECTED -> writePluggedInAt(ZonedDateTime.now())
+                Intent.ACTION_POWER_DISCONNECTED -> writePluggedInAt(null)
+            }
+        }
     }
 
     inner class ScreenReceiver : BroadcastReceiver() {
@@ -39,7 +55,7 @@ class StatusService : Service() {
         noteMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         noteMgr.createNotificationChannel(
             NotificationChannel(
-                NoteChannelId,
+                noteChannelId,
                 "Power Status",
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
@@ -56,15 +72,20 @@ class StatusService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        noteBuilder = Notification.Builder(this, NoteChannelId)
+        noteBuilder = Notification.Builder(this, noteChannelId)
             .setContentTitle("Battery Draw: - W")
             .setSmallIcon(renderIcon("-", "W"))
             .setContentIntent(noteIntent)
             .setOnlyAlertOnce(true)
 
-        val filter = IntentFilter(Intent.ACTION_SCREEN_ON)
+        var filter = IntentFilter(Intent.ACTION_SCREEN_ON)
         filter.addAction(Intent.ACTION_SCREEN_OFF)
         registerReceiver(ScreenReceiver(), filter)
+
+        filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED)
+        registerReceiver(PowerConnectionReceiver(), filter)
+        writePluggedInAt(null)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -75,7 +96,7 @@ class StatusService : Service() {
         init()
         task.start()
 
-        startForeground(NoteId, noteBuilder.build())
+        startForeground(noteId, noteBuilder.build())
 
         return START_STICKY;
     }
@@ -125,6 +146,6 @@ class StatusService : Service() {
             }
         )
 
-        noteMgr.notify(NoteId, noteBuilder.build())
+        noteMgr.notify(noteId, noteBuilder.build())
     }
 }

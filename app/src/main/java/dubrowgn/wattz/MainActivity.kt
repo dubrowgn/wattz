@@ -9,17 +9,18 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-const val NoteChannelId = "wattz.status"
-const val NoteId = 1
 const val intervalMs = 1_250L
+const val noteChannelId = "wattz.status"
+const val noteId = 1
+const val prefsName = "prefs"
 
 class MainActivity : Activity() {
     private lateinit var battery: Battery
     private val task = PeriodicTask({ update() }, intervalMs)
     private lateinit var txtDetails: TextView
-    private var pluggedInAt: LocalDateTime? = null
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
@@ -57,18 +58,18 @@ class MainActivity : Activity() {
     private fun update() {
         debug("update()")
 
-        if (pluggedInAt == null && battery.charging)
-            pluggedInAt = LocalDateTime.now()
-        else if (pluggedInAt != null && !battery.charging)
-            pluggedInAt = null
+        val pluggedInAtStr = getSharedPreferences(prefsName, MODE_MULTI_PROCESS)
+            .getString("pluggedInAt", null)
 
         var chargeStr = ""
-        if (battery.charging) {
+        if (pluggedInAtStr != null) {
+            val pluggedInAt = ZonedDateTime.parse(pluggedInAtStr)
+            val localTime = LocalDateTime.ofInstant(pluggedInAt.toInstant(), pluggedInAt.zone)
             val dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            chargeStr =
-                "Charging Since: ${pluggedInAt!!.format(dateFmt)}\n" +
-                "Time to Full: ${fmtSeconds(battery.secondsUntilCharged)}\n"
+            chargeStr += "Charging Since: ${localTime.format(dateFmt)}\n"
         }
+        if (battery.secondsUntilCharged != null)
+            chargeStr += "Time to Full: ${fmtSeconds(battery.secondsUntilCharged)}\n"
 
         @SuppressLint("SetTextI18n")
         txtDetails.text =
