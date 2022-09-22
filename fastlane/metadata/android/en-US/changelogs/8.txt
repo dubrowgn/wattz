@@ -1,0 +1,1 @@
+* Fix an issue where the app would incorrectly reset the "Charging Since" timestamp - https://github.com/dubrowgn/wattz/issues/10
