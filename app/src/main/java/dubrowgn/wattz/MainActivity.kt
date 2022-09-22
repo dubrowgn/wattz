@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter
 
 const val NoteChannelId = "wattz.status"
 const val NoteId = 1
-const val intervalMs = 1_250L
+const val intervalMs = 1_000L
 
 class MainActivity : Activity() {
     private lateinit var battery: Battery
@@ -54,13 +54,23 @@ class MainActivity : Activity() {
         setContentView(txtDetails)
     }
 
+    private var state:Boolean = false
     private fun update() {
         debug("update()")
 
-        if (pluggedInAt == null && battery.charging)
-            pluggedInAt = LocalDateTime.now()
-        else if (pluggedInAt != null && !battery.charging)
+        if (battery.charging){
+            if(!state) {
+                pluggedInAt = LocalDateTime.now()
+                state = true
+            }
+        }
+        if (!battery.charging){
             pluggedInAt = null
+            state = false
+        }
+
+        debug("state: $state")
+
 
         var chargeStr = ""
         if (battery.charging) {
