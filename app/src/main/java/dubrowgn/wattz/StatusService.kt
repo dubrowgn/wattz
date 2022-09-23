@@ -98,7 +98,7 @@ class StatusService : Service() {
 
         startForeground(noteId, noteBuilder.build())
 
-        return START_STICKY;
+        return START_STICKY
     }
 
     override fun onDestroy() {
@@ -129,13 +129,16 @@ class StatusService : Service() {
         return Icon.createWithBitmap(bitmap)
     }
 
+
+
     private fun update() {
         debug("update()")
 
         val txtWatts = fmt(battery.watts)
+        val txtAvgWatts = fmt(battery.calculateAvgWatts())
 
         noteBuilder
-            .setContentTitle("Battery Draw: $txtWatts W")
+            .setContentTitle("Battery Draw: $txtWatts W\nAvg. Draw: $txtAvgWatts")
             .setSmallIcon(renderIcon(txtWatts, "w"))
 
         noteBuilder.setContentText(

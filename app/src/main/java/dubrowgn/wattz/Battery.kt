@@ -85,4 +85,22 @@ class Battery(ctx: Context) {
 
         return fromMillis(secs.toDouble())
     }
+
+    // average battery watts draw since last charge
+    private var totalWatts:Double = 0.0
+    private var counter = 0
+
+    fun calculateAvgWatts(): Double {
+        return if (!charging){
+            totalWatts += watts!!
+            counter++
+
+            totalWatts/counter
+        } else {
+            totalWatts = 0.0
+            counter = 0
+            
+            0.0
+        }
+    }
 }
