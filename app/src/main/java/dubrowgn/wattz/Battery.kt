@@ -86,7 +86,7 @@ class Battery(ctx: Context) {
         return fromMillis(secs.toDouble())
     }
 
-    // average battery watts draw since last charge
+    // average battery wattage draw since last charge or phone last start-up
     private var totalWatts:Double = 0.0
     private var counter = 0
 
@@ -99,7 +99,7 @@ class Battery(ctx: Context) {
         } else {
             totalWatts = 0.0
             counter = 0
-            
+
             0.0
         }
     }
