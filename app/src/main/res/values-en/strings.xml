@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Wattz</string>
+    <string name="battery">Battery</string>
+    <string name="charging">Charging</string>
+    <string name="chargingSince">Charging Since</string>
+    <string name="current">Current</string>
+    <string name="energy">Energy</string>
+    <string name="indeterminate">-</string>
+    <string name="no">no</string>
+    <string name="power">Power</string>
+    <string name="temperature">Temperature</string>
+    <string name="timeToFullCharge">Time to Full Charge</string>
+    <string name="voltage">Voltage</string>
+    <string name="yes">yes</string>
+</resources>

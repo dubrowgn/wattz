@@ -1,12 +1,11 @@
 package dubrowgn.wattz
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.Activity
+import android.app.ActivityManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.widget.LinearLayout
 import android.widget.TextView
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
@@ -20,7 +19,15 @@ const val prefsName = "prefs"
 class MainActivity : Activity() {
     private lateinit var battery: Battery
     private val task = PeriodicTask({ update() }, intervalMs)
-    private lateinit var txtDetails: TextView
+
+    private lateinit var charging: TextView
+    private lateinit var chargingSince: TextView
+    private lateinit var current: TextView
+    private lateinit var energy: TextView
+    private lateinit var power: TextView
+    private lateinit var temperature: TextView
+    private lateinit var timeToFullCharge: TextView
+    private lateinit var voltage: TextView
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
@@ -38,6 +45,19 @@ class MainActivity : Activity() {
         return false
     }
 
+    private fun initUi() {
+        setContentView(R.layout.activity_main)
+
+        charging = findViewById(R.id.charging)
+        chargingSince = findViewById(R.id.chargingSince)
+        current = findViewById(R.id.current)
+        energy = findViewById(R.id.energy)
+        power = findViewById(R.id.power)
+        temperature = findViewById(R.id.temperature)
+        timeToFullCharge = findViewById(R.id.timeToFullCharge)
+        voltage = findViewById(R.id.voltage)
+    }
+
     private fun init() {
         battery = Battery(this)
 
@@ -45,41 +65,37 @@ class MainActivity : Activity() {
             startForegroundService(Intent(this, StatusService::class.java))
         }
 
-        txtDetails = TextView(this)
-        txtDetails.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
-        txtDetails.gravity = Gravity.CENTER
-
-        setContentView(txtDetails)
+        initUi()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun update() {
         debug("update()")
 
+        charging.text = if (battery.charging) getString(R.string.yes) else getString(R.string.no)
+        current.text = fmt(battery.amps) + "A"
+        energy.text = fmt(battery.levelAmpHours) + "Ah"
+        power.text = fmt(battery.watts) + "W"
+        temperature.text = fmt(battery.celsius) + "°C"
+        voltage.text = fmt(battery.volts) + "V"
+
         val pluggedInAtStr = getSharedPreferences(prefsName, MODE_MULTI_PROCESS)
             .getString("pluggedInAt", null)
-
-        var chargeStr = ""
-        if (pluggedInAtStr != null) {
+        chargingSince.text = if (pluggedInAtStr != null) {
             val pluggedInAt = ZonedDateTime.parse(pluggedInAtStr)
             val localTime = LocalDateTime.ofInstant(pluggedInAt.toInstant(), pluggedInAt.zone)
             val dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            chargeStr += "Charging Since: ${localTime.format(dateFmt)}\n"
-        }
-        if (battery.secondsUntilCharged != null)
-            chargeStr += "Time to Full: ${fmtSeconds(battery.secondsUntilCharged)}\n"
 
-        @SuppressLint("SetTextI18n")
-        txtDetails.text =
-            "Charging: ${battery.charging}\n" +
-            "Level: ${fmt(battery.levelAmpHours)}Ah\n" +
-            "Current: ${fmt(battery.amps)}A\n" +
-            "Temperature: ${fmt(battery.celsius)}°C\n" +
-            "Volts: ${fmt(battery.volts)}V\n" +
-            "Power: ${fmt(battery.watts)}W\n" +
-            chargeStr
+            localTime.format(dateFmt)
+        } else {
+            getString(R.string.indeterminate)
+        }
+
+        timeToFullCharge.text = if (battery.secondsUntilCharged != null) {
+            fmtSeconds(battery.secondsUntilCharged)
+        } else {
+            getString(R.string.indeterminate)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
