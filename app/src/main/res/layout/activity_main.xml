@@ -21,6 +21,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/centerLine"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/lblPower"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,8 +36,8 @@
         android:text="@string/power"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/lblTemperature"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/lblBattery" />
 
     <TextView
@@ -40,33 +47,9 @@
         android:gravity="center"
         android:text="@string/indeterminate"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/temperature"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/lblPower" />
-
-    <TextView
-        android:id="@+id/lblTemperature"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:gravity="center"
-        android:text="@string/temperature"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lblPower"
-        app:layout_constraintTop_toBottomOf="@+id/lblBattery" />
-
-    <TextView
-        android:id="@+id/temperature"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/indeterminate"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/power"
-        app:layout_constraintTop_toBottomOf="@+id/lblTemperature" />
 
     <TextView
         android:id="@+id/lblCurrent"
@@ -77,8 +60,8 @@
         android:text="@string/current"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/lblCharging"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/power" />
 
     <TextView
@@ -88,33 +71,9 @@
         android:gravity="center"
         android:text="@string/indeterminate"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/charging"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/lblCurrent" />
-
-    <TextView
-        android:id="@+id/lblCharging"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:gravity="center"
-        android:text="@string/charging"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lblCurrent"
-        app:layout_constraintTop_toBottomOf="@+id/temperature" />
-
-    <TextView
-        android:id="@+id/charging"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/indeterminate"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/current"
-        app:layout_constraintTop_toBottomOf="@+id/lblCharging" />
 
     <TextView
         android:id="@+id/lblVoltage"
@@ -125,8 +84,8 @@
         android:text="@string/voltage"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/lblCharging"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/current" />
 
     <TextView
@@ -136,33 +95,9 @@
         android:gravity="center"
         android:text="@string/indeterminate"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/chargingSince"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/lblVoltage" />
-
-    <TextView
-        android:id="@+id/lblChargingSince"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:gravity="center"
-        android:text="@string/chargingSince"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lblVoltage"
-        app:layout_constraintTop_toBottomOf="@+id/charging" />
-
-    <TextView
-        android:id="@+id/chargingSince"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/indeterminate"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/voltage"
-        app:layout_constraintTop_toBottomOf="@+id/lblChargingSince" />
 
     <TextView
         android:id="@+id/lblEnergy"
@@ -173,8 +108,8 @@
         android:text="@string/energy"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/lblTimeToFullCharge"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/voltage" />
 
     <TextView
@@ -184,9 +119,81 @@
         android:gravity="center"
         android:text="@string/indeterminate"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/timeToFullCharge"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/lblEnergy" />
+
+    <TextView
+        android:id="@+id/lblTemperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:gravity="center"
+        android:text="@string/temperature"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblBattery" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/indeterminate"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblTemperature" />
+
+    <TextView
+        android:id="@+id/lblCharging"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:gravity="center"
+        android:text="@string/charging"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+
+    <TextView
+        android:id="@+id/charging"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/indeterminate"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblCharging" />
+
+    <TextView
+        android:id="@+id/lblChargingSince"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:gravity="center"
+        android:text="@string/chargingSince"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/charging" />
+
+    <TextView
+        android:id="@+id/chargingSince"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/indeterminate"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblChargingSince" />
 
     <TextView
         android:id="@+id/lblTimeToFullCharge"
@@ -197,8 +204,8 @@
         android:text="@string/timeToFullCharge"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lblEnergy"
         app:layout_constraintTop_toBottomOf="@+id/chargingSince" />
 
     <TextView
@@ -208,8 +215,8 @@
         android:gravity="center"
         android:text="@string/indeterminate"
         android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/energy"
         app:layout_constraintTop_toBottomOf="@+id/lblTimeToFullCharge" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
