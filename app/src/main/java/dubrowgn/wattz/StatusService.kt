@@ -9,32 +9,28 @@ import android.graphics.*
 import android.graphics.drawable.Icon
 import android.os.IBinder
 import android.util.Log
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 
 class StatusService : Service() {
     private lateinit var battery: Battery
+    private val dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     private lateinit var noteBuilder: Notification.Builder
     private lateinit var noteMgr: NotificationManager
+    private var pluggedInAt: ZonedDateTime? = null
     private val task = PeriodicTask({ update() }, intervalMs)
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
     }
 
-    private fun writePluggedInAt(dt: ZonedDateTime?) {
-        getSharedPreferences(prefsName, MODE_MULTI_PROCESS)
-            .edit()
-            .putString("pluggedInAt", dt?.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
-            .commit()
-    }
-
     inner class PowerConnectionReceiver: BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
-                Intent.ACTION_POWER_CONNECTED -> writePluggedInAt(ZonedDateTime.now())
-                Intent.ACTION_POWER_DISCONNECTED -> writePluggedInAt(null)
+                Intent.ACTION_POWER_CONNECTED -> pluggedInAt = ZonedDateTime.now()
+                Intent.ACTION_POWER_DISCONNECTED -> pluggedInAt = null
             }
         }
     }
@@ -85,7 +81,6 @@ class StatusService : Service() {
         filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED)
         registerReceiver(PowerConnectionReceiver(), filter)
-        writePluggedInAt(null)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -129,8 +124,45 @@ class StatusService : Service() {
         return Icon.createWithBitmap(bitmap)
     }
 
+    private fun updateData() {
+        val intent = Intent()
+            .setAction(batteryDataChannel)
+            .putExtra("charging",
+                when (battery.charging) {
+                    true -> getString(R.string.yes)
+                    false -> getString(R.string.no)
+                }
+            )
+            .putExtra("chargingSince",
+                when (val pluggedInAt = pluggedInAt) {
+                    null -> getString(R.string.indeterminate)
+                    else -> LocalDateTime
+                        .ofInstant(pluggedInAt.toInstant(), pluggedInAt.zone)
+                        .format(dateFmt)
+                }
+            )
+            .putExtra("current", fmt(battery.amps) + "A")
+            .putExtra("energy",
+                "${fmt(battery.energyWattHours)}Wh (${fmt(battery.energyAmpHours)}Ah)"
+            )
+            .putExtra("power", fmt(battery.watts) + "W")
+            .putExtra("temperature", fmt(battery.celsius) + "°C")
+            .putExtra("timeToFullCharge",
+                when (val secondsUntilCharged = battery.secondsUntilCharged) {
+                    null -> getString(R.string.indeterminate)
+                    0.0 -> "fully charged"
+                    else -> fmtSeconds(secondsUntilCharged)
+                }
+            )
+            .putExtra("voltage", fmt(battery.volts) + "V")
+
+        applicationContext.sendBroadcast(intent)
+    }
+
     private fun update() {
         debug("update()")
+
+        updateData()
 
         val txtWatts = fmt(battery.watts)
 
