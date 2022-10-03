@@ -12,6 +12,9 @@ class Battery(ctx: Context) {
     private val mgr = ctx.getSystemService(Activity.BATTERY_SERVICE) as BatteryManager
     private val intent = ctx.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
+    // configuration
+    var invertCurrent = false
+
     // Current is defined as uA in
     // https://developer.android.com/reference/android/os/BatteryManager#BATTERY_PROPERTY_CURRENT_NOW,
     // but some devices report other units. Dynamically detect the correct units by assuming the
@@ -55,7 +58,8 @@ class Battery(ctx: Context) {
 
     val milliamps : Double get() = toMillis(amps)
     val amps : Double get() {
-        val amps = -1.0 * prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
+        val sign = if (invertCurrent) 1.0 else -1.0
+        val amps = sign * prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
         tuneAmpScalar(amps)
 
         return amps * ampScalar

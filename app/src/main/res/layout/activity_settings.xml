@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblSettings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:padding="16sp"
+        android:text="@string/settings"
+        android:textColor="@color/text_on_primary"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary"
+        android:tint="@color/text_on_primary"
+        android:contentDescription="@string/back"
+        android:onClick="onBack"
+        android:padding="16sp"
+        android:src="@drawable/ico_back"
+        app:layout_constraintBottom_toBottomOf="@+id/lblSettings"
+        app:layout_constraintStart_toStartOf="@+id/lblSettings"
+        app:layout_constraintTop_toTopOf="@+id/lblSettings" />
+
+    <TextView
+        android:id="@+id/lblWorkarounds"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16sp"
+        android:text="@string/workarounds"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblSettings" />
+
+    <TextView
+        android:id="@+id/workaroundsDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16sp"
+        android:text="@string/workaroundsDesc"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblWorkarounds" />
+
+    <TextView
+        android:id="@+id/lblInvertCurrent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16sp"
+        android:text="@string/invertCurrent"
+        android:textColor="@color/label"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workaroundsDesc" />
+
+    <TextView
+        android:id="@+id/invertCurrentDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16sp"
+        android:text="@string/invertCurrentDesc"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/invertCurrent"
+        app:layout_constraintTop_toBottomOf="@+id/lblInvertCurrent" />
+
+    <Switch
+        android:id="@+id/invertCurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/invertCurrentDesc"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/invertCurrentDesc"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,5 @@
     <color name="primary">#0080ff</color>
     <color name="primary_variant">#005cbc</color>
     <color name="text_on_primary">#ffffff</color>
+    <color name="label">@color/material_on_background_emphasis_high_type</color>
 </resources>

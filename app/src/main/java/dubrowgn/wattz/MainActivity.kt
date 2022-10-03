@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 
 
@@ -113,5 +114,9 @@ class MainActivity : Activity() {
         super.onResume()
 
         registerReceiver(batteryReceiver, IntentFilter(batteryDataChannel))
+    }
+
+    fun onSettings(view: View) {
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 }

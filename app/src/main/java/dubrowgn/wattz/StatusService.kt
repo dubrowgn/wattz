@@ -35,14 +35,27 @@ class StatusService : Service() {
         }
     }
 
+    inner class SettingsReceiver: BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action != settingsChannel)
+                return
+
+            loadSettings()
+        }
+    }
+
     inner class ScreenReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action == Intent.ACTION_SCREEN_OFF) {
-                task.stop()
-            } else if (intent.action == Intent.ACTION_SCREEN_ON) {
-                task.start()
+            when (intent.action) {
+                Intent.ACTION_SCREEN_OFF -> task.stop()
+                Intent.ACTION_SCREEN_ON -> task.start()
             }
         }
+    }
+
+    private fun loadSettings() {
+        val settings = getSharedPreferences(settingsName, MODE_MULTI_PROCESS)
+        battery.invertCurrent = settings.getBoolean("invertCurrent", false)
     }
 
     private fun init() {
@@ -78,6 +91,8 @@ class StatusService : Service() {
         filter.addAction(Intent.ACTION_SCREEN_OFF)
         registerReceiver(ScreenReceiver(), filter)
 
+        registerReceiver(SettingsReceiver(), IntentFilter(settingsChannel))
+
         filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED)
         registerReceiver(PowerConnectionReceiver(), filter)
@@ -89,6 +104,7 @@ class StatusService : Service() {
         super.onStartCommand(intent, flags, startId)
 
         init()
+        loadSettings()
         task.start()
 
         startForeground(noteId, noteBuilder.build())
