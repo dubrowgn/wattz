@@ -74,7 +74,7 @@ class MainActivity : Activity() {
 
         charging.text = if (battery.charging) getString(R.string.yes) else getString(R.string.no)
         current.text = fmt(battery.amps) + "A"
-        energy.text = fmt(battery.levelAmpHours) + "Ah"
+        energy.text = "${fmt(battery.energyWattHours)}Wh (${fmt(battery.energyAmpHours)}Ah)"
         power.text = fmt(battery.watts) + "W"
         temperature.text = fmt(battery.celsius) + "°C"
         voltage.text = fmt(battery.volts) + "V"

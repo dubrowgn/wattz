@@ -67,7 +67,8 @@ class Battery(ctx: Context) {
     val milliwatts : Double? get() = milliamps.times(volts)
     val watts : Double? get() = amps.times(volts)
 
-    val levelAmpHours : Double? get() = fromMicros(prop(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER))
+    val energyAmpHours : Double? get() = fromMicros(prop(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER))
+    val energyWattHours : Double? get() = volts?.times(energyAmpHours)
 
     val celsius : Double? get() = prop(BatteryManager.EXTRA_TEMPERATURE)?.div(10.0)
 
