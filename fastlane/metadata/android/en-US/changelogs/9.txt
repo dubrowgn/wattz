@@ -1,0 +1,4 @@
+* Overhauled main app screen.
+* Added workaround settings screen, for phones with incorrect BatteryManager implementations.
+* Energy is now reported in Wh, in addition to Ah.
+* Fixed an issue where the status indicator and app could show different power values.
