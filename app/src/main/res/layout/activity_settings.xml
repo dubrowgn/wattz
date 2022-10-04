@@ -78,16 +78,41 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16sp"
+        android:layout_marginTop="4sp"
         android:text="@string/invertCurrentDesc"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/invertCurrent"
         app:layout_constraintTop_toBottomOf="@+id/lblInvertCurrent" />
 
+    <TextView
+        android:id="@+id/lblInvertCurrentPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="4sp"
+        android:text="@string/previewLeadIn"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/invertCurrentPreview"
+        app:layout_constraintTop_toBottomOf="@+id/invertCurrentDesc" />
+
+    <TextView
+        android:id="@+id/invertCurrentPreview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16sp"
+        android:layout_marginTop="4sp"
+        android:text="@string/indeterminate"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@+id/lblInvertCurrentPreview"
+        app:layout_constraintRight_toLeftOf="@+id/invertCurrent"
+        app:layout_constraintTop_toBottomOf="@+id/invertCurrentDesc" />
+
     <Switch
         android:id="@+id/invertCurrent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/invertCurrentDesc"
         app:layout_constraintRight_toRightOf="parent"

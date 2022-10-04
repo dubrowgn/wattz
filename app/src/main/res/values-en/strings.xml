@@ -17,7 +17,8 @@
 
     <!-- settings -->
     <string name="invertCurrent">Invert Current</string>
-    <string name="invertCurrentDesc">Invert the sign of the battery current.</string>
+    <string name="invertCurrentDesc">Invert the sign of the battery current. The following should be negative when NOT plugged in.</string>
+    <string name="previewLeadIn">Preview:\u0020</string>
     <string name="workarounds">Workarounds</string>
     <string name="workaroundsDesc">Many phones do not correctly implement the Android BatteryManager interface, and will report incorrect battery metrics by default. If needed, use the following settings to workaround implementation defects on your phone.</string>
 </resources>
