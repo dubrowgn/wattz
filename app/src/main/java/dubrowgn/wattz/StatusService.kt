@@ -55,6 +55,7 @@ class StatusService : Service() {
 
     private fun loadSettings() {
         val settings = getSharedPreferences(settingsName, MODE_MULTI_PROCESS)
+        battery.currentScalar = settings.getFloat("currentScalar", 1f).toDouble()
         battery.invertCurrent = settings.getBoolean("invertCurrent", false)
     }
 

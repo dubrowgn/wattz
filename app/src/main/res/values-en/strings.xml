@@ -16,6 +16,8 @@
     <string name="yes">yes</string>
 
     <!-- settings -->
+    <string name="currentUnits">Current Units</string>
+    <string name="currentUnitsDesc">Select the units used to report battery current. The following should be about 6 or 7 digits when NOT plugged in.</string>
     <string name="invertCurrent">Invert Current</string>
     <string name="invertCurrentDesc">Invert the sign of the battery current. The following should be negative when NOT plugged in.</string>
     <string name="previewLeadIn">Preview:\u0020</string>
