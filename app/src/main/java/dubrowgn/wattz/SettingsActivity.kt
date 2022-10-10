@@ -12,7 +12,7 @@ import android.widget.TextView
 
 
 const val settingsName = "settings"
-const val settingsChannel = "dubrowgn.wattz.settings"
+const val settingsUpdateInd = "$namespace.settings-update-ind"
 
 class SettingsActivity : Activity() {
     private lateinit var battery: Battery
@@ -58,7 +58,7 @@ class SettingsActivity : Activity() {
             .putFloat("currentScalar", currentScalar)
             .commit()
 
-        sendBroadcast(Intent().setAction(settingsChannel))
+        sendBroadcast(Intent().setPackage(packageName).setAction(settingsUpdateInd))
     }
 
     private fun update() {

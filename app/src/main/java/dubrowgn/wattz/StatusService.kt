@@ -26,27 +26,13 @@ class StatusService : Service() {
         Log.d(this::class.java.name, msg)
     }
 
-    inner class PowerConnectionReceiver: BroadcastReceiver() {
+    private inner class MsgReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
+                batteryDataReq -> updateData()
+                settingsUpdateInd -> loadSettings()
                 Intent.ACTION_POWER_CONNECTED -> pluggedInAt = ZonedDateTime.now()
                 Intent.ACTION_POWER_DISCONNECTED -> pluggedInAt = null
-            }
-        }
-    }
-
-    inner class SettingsReceiver: BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action != settingsChannel)
-                return
-
-            loadSettings()
-        }
-    }
-
-    inner class ScreenReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            when (intent.action) {
                 Intent.ACTION_SCREEN_OFF -> task.stop()
                 Intent.ACTION_SCREEN_ON -> task.start()
             }
@@ -88,15 +74,17 @@ class StatusService : Service() {
             .setContentIntent(noteIntent)
             .setOnlyAlertOnce(true)
 
-        var filter = IntentFilter(Intent.ACTION_SCREEN_ON)
-        filter.addAction(Intent.ACTION_SCREEN_OFF)
-        registerReceiver(ScreenReceiver(), filter)
-
-        registerReceiver(SettingsReceiver(), IntentFilter(settingsChannel))
-
-        filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
-        filter.addAction(Intent.ACTION_POWER_DISCONNECTED)
-        registerReceiver(PowerConnectionReceiver(), filter)
+        registerReceiver(
+            MsgReceiver(),
+            IntentFilter().apply {
+                addAction(batteryDataReq)
+                addAction(settingsUpdateInd)
+                addAction(Intent.ACTION_POWER_CONNECTED)
+                addAction(Intent.ACTION_POWER_DISCONNECTED)
+                addAction(Intent.ACTION_SCREEN_OFF)
+                addAction(Intent.ACTION_SCREEN_ON)
+            }
+        )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -143,7 +131,8 @@ class StatusService : Service() {
 
     private fun updateData() {
         val intent = Intent()
-            .setAction(batteryDataChannel)
+            .setPackage(packageName)
+            .setAction(batteryDataResp)
             .putExtra("charging",
                 when (battery.charging) {
                     true -> getString(R.string.yes)

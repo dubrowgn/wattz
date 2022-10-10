@@ -11,10 +11,11 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 
-
-const val batteryDataChannel = "dubrowgn.wattz.battery-data"
+const val namespace = "dubrowgn.wattz"
+const val batteryDataReq = "$namespace.battery-data-req"
+const val batteryDataResp = "$namespace.battery-data-resp"
 const val intervalMs = 1_250L
-const val noteChannelId = "wattz.status"
+const val noteChannelId = "$namespace.status"
 const val noteId = 1
 
 class MainActivity : Activity() {
@@ -113,7 +114,8 @@ class MainActivity : Activity() {
 
         super.onResume()
 
-        registerReceiver(batteryReceiver, IntentFilter(batteryDataChannel))
+        registerReceiver(batteryReceiver, IntentFilter(batteryDataResp))
+        sendBroadcast(Intent().setPackage(packageName).setAction(batteryDataReq))
     }
 
     fun onSettings(view: View) {
