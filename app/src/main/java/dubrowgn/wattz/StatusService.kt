@@ -20,6 +20,7 @@ class StatusService : Service() {
     private lateinit var noteBuilder: Notification.Builder
     private lateinit var noteMgr: NotificationManager
     private var pluggedInAt: ZonedDateTime? = null
+    private lateinit var snapshot: BatterySnapshot
     private val task = PeriodicTask({ update() }, intervalMs)
 
     private fun debug(msg: String) {
@@ -47,6 +48,7 @@ class StatusService : Service() {
 
     private fun init() {
         battery = Battery(applicationContext)
+        snapshot = battery.snapshot()
 
         noteMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         noteMgr.createNotificationChannel(
@@ -134,7 +136,7 @@ class StatusService : Service() {
             .setPackage(packageName)
             .setAction(batteryDataResp)
             .putExtra("charging",
-                when (battery.charging) {
+                when (snapshot.charging) {
                     true -> getString(R.string.yes)
                     false -> getString(R.string.no)
                 }
@@ -147,20 +149,20 @@ class StatusService : Service() {
                         .format(dateFmt)
                 }
             )
-            .putExtra("current", fmt(battery.amps) + "A")
+            .putExtra("current", fmt(snapshot.amps) + "A")
             .putExtra("energy",
-                "${fmt(battery.energyWattHours)}Wh (${fmt(battery.energyAmpHours)}Ah)"
+                "${fmt(snapshot.energyWattHours)}Wh (${fmt(snapshot.energyAmpHours)}Ah)"
             )
-            .putExtra("power", fmt(battery.watts) + "W")
-            .putExtra("temperature", fmt(battery.celsius) + "°C")
+            .putExtra("power", fmt(snapshot.watts) + "W")
+            .putExtra("temperature", fmt(snapshot.celsius) + "°C")
             .putExtra("timeToFullCharge",
-                when (val secondsUntilCharged = battery.secondsUntilCharged) {
+                when (val seconds = snapshot.secondsUntilCharged) {
                     null -> getString(R.string.indeterminate)
                     0.0 -> "fully charged"
-                    else -> fmtSeconds(secondsUntilCharged)
+                    else -> fmtSeconds(seconds)
                 }
             )
-            .putExtra("voltage", fmt(battery.volts) + "V")
+            .putExtra("voltage", fmt(snapshot.volts) + "V")
 
         applicationContext.sendBroadcast(intent)
     }
@@ -168,22 +170,23 @@ class StatusService : Service() {
     private fun update() {
         debug("update()")
 
-        updateData()
+        snapshot = battery.snapshot()
 
-        val txtWatts = fmt(battery.watts)
-
+        val txtWatts = fmt(snapshot.watts)
         noteBuilder
-            .setContentTitle("Battery Draw: $txtWatts W")
+            .setContentTitle("Battery Draw: ${txtWatts}W")
             .setSmallIcon(renderIcon(txtWatts, "w"))
 
         noteBuilder.setContentText(
-            when(battery.secondsUntilCharged) {
+            when(val seconds = snapshot.secondsUntilCharged) {
                 null -> ""
                 0.0 -> "fully charged"
-                else -> "${fmtSeconds(battery.secondsUntilCharged)} until full charge"
+                else -> "${fmtSeconds(seconds)} until full charge"
             }
         )
 
         noteMgr.notify(noteId, noteBuilder.build())
+
+        updateData()
     }
 }

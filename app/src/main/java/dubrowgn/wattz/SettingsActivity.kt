@@ -62,7 +62,7 @@ class SettingsActivity : Activity() {
     }
 
     private fun update() {
-        val current = battery.currentRaw
+        val current = battery.snapshot().currentRaw
 
         currentUnitsPreview.text = "${current?.times(currentScalar)?.toLong()}"
 
