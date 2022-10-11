@@ -1,0 +1,2 @@
+• Reduce delay when populating values on app start
+• Improve consistency between reported values
