@@ -16,4 +16,4 @@ the app also shows additional detailed battery metrics.
 
 **settings view**
 
-![settings](readme/setting.png)
+![settings](readme/settings.png)
