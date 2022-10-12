@@ -18,11 +18,11 @@ class SettingsActivity : Activity() {
     private lateinit var battery: Battery
     private val task = PeriodicTask({ update() }, intervalMs)
 
-    private lateinit var currentUnits: RadioGroup
-    private lateinit var currentUnitsPreview: TextView
+    private lateinit var charging: TextView
+    private lateinit var currentScalar: RadioGroup
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var invertCurrent: Switch
-    private lateinit var invertCurrentPreview: TextView
+    private lateinit var power: TextView
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
@@ -30,22 +30,14 @@ class SettingsActivity : Activity() {
 
     private fun loadPrefs() {
         val settings = getSharedPreferences(settingsName, MODE_PRIVATE)
-        currentUnits.check(
+        currentScalar.check(
             when (settings.getFloat("currentScalar", -1f)) {
-                1000f -> R.id.currentUnitsMillis
-                .001f -> R.id.currentUnitsNanos
-                else -> R.id.currentUnitsMicros
+                1000f -> R.id.currentScalar1000
+                .001f -> R.id.currentScalar0_001
+                else -> R.id.currentScalar1
             }
         )
         invertCurrent.isChecked = settings.getBoolean("invertCurrent", false)
-    }
-
-    private val currentScalar: Float get() {
-        return when(currentUnits.checkedRadioButtonId) {
-            R.id.currentUnitsMillis -> 1000f
-            R.id.currentUnitsNanos -> .001f
-            else -> 1f
-        }
     }
 
     @SuppressLint("ApplySharedPref")
@@ -54,20 +46,25 @@ class SettingsActivity : Activity() {
 
         getSharedPreferences(settingsName, MODE_PRIVATE)
             .edit()
-            .putBoolean("invertCurrent", invertCurrent.isChecked)
-            .putFloat("currentScalar", currentScalar)
+            .putBoolean("invertCurrent", battery.invertCurrent)
+            .putFloat("currentScalar", battery.currentScalar.toFloat())
             .commit()
 
         sendBroadcast(Intent().setPackage(packageName).setAction(settingsUpdateInd))
     }
 
+    @SuppressLint("SetTextI18n")
     private fun update() {
-        val current = battery.snapshot().currentRaw
+        battery.currentScalar = when(currentScalar.checkedRadioButtonId) {
+            R.id.currentScalar1000 -> 1000.0
+            R.id.currentScalar0_001 -> 0.001
+            else -> 1.0
+        }
+        battery.invertCurrent = invertCurrent.isChecked
 
-        currentUnitsPreview.text = "${current?.times(currentScalar)?.toLong()}"
-
-        val sign = if(invertCurrent.isChecked) -1L else 1L
-        invertCurrentPreview.text = "${current?.times(sign)}"
+        val snapshot = battery.snapshot()
+        charging.text = getString(if (snapshot.charging) R.string.yes else R.string.no)
+        power.text = "${fmt(snapshot.watts)}W"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,14 +76,14 @@ class SettingsActivity : Activity() {
 
         setContentView(R.layout.activity_settings)
 
-        currentUnits = findViewById(R.id.currentUnits)
-        currentUnitsPreview = findViewById(R.id.currentUnitsPreview)
+        charging = findViewById(R.id.charging)
+        currentScalar = findViewById(R.id.currentScalar)
         invertCurrent = findViewById(R.id.invertCurrent)
-        invertCurrentPreview = findViewById(R.id.invertCurrentPreview)
+        power = findViewById(R.id.power)
 
         loadPrefs()
 
-        currentUnits.setOnCheckedChangeListener { _, _ -> onChange() }
+        currentScalar.setOnCheckedChangeListener { _, _ -> onChange() }
         invertCurrent.setOnCheckedChangeListener { _, _ -> onChange() }
     }
 

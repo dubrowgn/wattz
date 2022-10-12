@@ -65,6 +65,108 @@
             app:layout_constraintTop_toBottomOf="@id/lblWorkarounds" />
 
         <TextView
+            android:id="@+id/lblPower"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size"
+            android:layout_marginTop="@dimen/text_size"
+            android:text="@string/power"
+            android:textColor="@color/label"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/lblCharging"
+            app:layout_constraintTop_toBottomOf="@+id/workaroundsDesc" />
+
+        <TextView
+            android:id="@+id/power"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size"
+            android:text="@string/indeterminate"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/charging"
+            app:layout_constraintTop_toBottomOf="@+id/lblPower" />
+
+        <TextView
+            android:id="@+id/lblCharging"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size"
+            android:layout_marginTop="@dimen/text_size"
+            android:text="@string/charging"
+            android:textColor="@color/label"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/lblPower"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/workaroundsDesc" />
+
+        <TextView
+            android:id="@+id/charging"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size"
+            android:text="@string/indeterminate"
+            app:layout_constraintLeft_toRightOf="@+id/power"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblCharging" />
+
+        <TextView
+            android:id="@+id/lblCurrentScalar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_size"
+            android:text="@string/currentScalar"
+            android:textColor="@color/label"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/power" />
+
+        <TextView
+            android:id="@+id/currentScalarDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size"
+            android:layout_marginVertical="@dimen/text_size_over_2"
+            android:text="@string/currentScalarDesc"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblCurrentScalar" />
+
+        <RadioGroup
+            android:id="@+id/currentScalar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size_over_2"
+            android:layout_marginVertical="@dimen/text_size"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/currentScalarDesc">
+
+            <RadioButton
+                android:id="@+id/currentScalar1000"
+                android:layout_width="wrap_content"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:text="1000x" />
+
+            <RadioButton
+                android:id="@+id/currentScalar1"
+                android:layout_width="wrap_content"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:text="1x" />
+
+            <RadioButton
+                android:id="@+id/currentScalar0_001"
+                android:layout_width="wrap_content"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:text="0.001x" />
+        </RadioGroup>
+
+        <TextView
             android:id="@+id/lblInvertCurrent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,126 +176,29 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/workaroundsDesc" />
+            app:layout_constraintTop_toBottomOf="@+id/currentScalar" />
 
         <TextView
             android:id="@+id/invertCurrentDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size_over_4"
+            android:layout_marginVertical="@dimen/text_size_over_2"
             android:text="@string/invertCurrentDesc"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/invertCurrent"
             app:layout_constraintTop_toBottomOf="@+id/lblInvertCurrent" />
-
-        <TextView
-            android:id="@+id/lblInvertCurrentPreview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size_over_4"
-            android:text="@string/previewLeadIn"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/invertCurrentPreview"
-            app:layout_constraintTop_toBottomOf="@+id/invertCurrentDesc" />
-
-        <TextView
-            android:id="@+id/invertCurrentPreview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size_over_4"
-            android:text="@string/indeterminate"
-            app:layout_constraintLeft_toRightOf="@+id/lblInvertCurrentPreview"
-            app:layout_constraintRight_toLeftOf="@+id/invertCurrent"
-            app:layout_constraintTop_toBottomOf="@+id/invertCurrentDesc" />
 
         <Switch
             android:id="@+id/invertCurrent"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/invertCurrentDesc"
+            app:layout_constraintLeft_toRightOf="@+id/invertCurrentDesc"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/invertCurrentDesc"
+            app:layout_constraintBottom_toBottomOf="@+id/invertCurrentDesc"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <TextView
-            android:id="@+id/lblCurrentUnits"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_size"
-            android:text="@string/currentUnits"
-            android:textColor="@color/label"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblInvertCurrentPreview" />
-
-        <TextView
-            android:id="@+id/currentUnitsDesc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size_over_4"
-            android:text="@string/currentUnitsDesc"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblCurrentUnits" />
-
-        <TextView
-            android:id="@+id/lblCurrentUnitsPreview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size_over_4"
-            android:text="@string/previewLeadIn"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/currentUnitsPreview"
-            app:layout_constraintTop_toBottomOf="@+id/currentUnitsDesc" />
-
-        <TextView
-            android:id="@+id/currentUnitsPreview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size_over_4"
-            android:text="@string/indeterminate"
-            app:layout_constraintLeft_toRightOf="@+id/lblCurrentUnitsPreview"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/currentUnitsDesc" />
-
-        <RadioGroup
-            android:id="@+id/currentUnits"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblCurrentUnitsPreview">
-
-            <RadioButton
-                android:id="@+id/currentUnitsMillis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/text_size"
-                android:text="mA" />
-
-            <RadioButton
-                android:id="@+id/currentUnitsMicros"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-             android:layout_marginHorizontal="@dimen/text_size"
-                android:text="µA" />
-
-            <RadioButton
-                android:id="@+id/currentUnitsNanos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/text_size"
-                android:text="nA" />
-        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

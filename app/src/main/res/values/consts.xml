@@ -3,5 +3,5 @@
     <dimen name="h1_size">32sp</dimen>
     <dimen name="h2_size">20sp</dimen>
     <dimen name="text_size">16sp</dimen>
-    <dimen name="text_size_over_4">4sp</dimen>
+    <dimen name="text_size_over_2">8sp</dimen>
 </resources>
