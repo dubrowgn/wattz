@@ -35,8 +35,14 @@ class StatusService : Service() {
                     loadSettings()
                     update()
                 }
-                Intent.ACTION_POWER_CONNECTED -> pluggedInAt = ZonedDateTime.now()
-                Intent.ACTION_POWER_DISCONNECTED -> pluggedInAt = null
+                Intent.ACTION_POWER_CONNECTED -> {
+                    pluggedInAt = ZonedDateTime.now()
+                    update()
+                }
+                Intent.ACTION_POWER_DISCONNECTED -> {
+                    pluggedInAt = null
+                    update()
+                }
                 Intent.ACTION_SCREEN_OFF -> task.stop()
                 Intent.ACTION_SCREEN_ON -> task.start()
             }
