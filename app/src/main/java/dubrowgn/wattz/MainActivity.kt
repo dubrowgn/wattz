@@ -57,7 +57,7 @@ class MainActivity : Activity() {
     private fun serviceRunning(): Boolean {
         val serviceName = StatusService::class.java.name
         val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
-        for (info in activityManager.getRunningServices(100)) {
+        for (info in activityManager.getRunningServices(Int.MAX_VALUE)) {
             if (info.service.className == serviceName) {
                 return true
             }
