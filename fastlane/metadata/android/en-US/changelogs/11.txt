@@ -1,0 +1,4 @@
+• Simplify settings view
+• Calculate status icon size using display density
+• Improve consistency between settings view and status icon
+• Immediately update after plug/unplug event
