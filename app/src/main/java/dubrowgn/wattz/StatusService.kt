@@ -31,7 +31,10 @@ class StatusService : Service() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
                 batteryDataReq -> updateData()
-                settingsUpdateInd -> loadSettings()
+                settingsUpdateInd -> {
+                    loadSettings()
+                    update()
+                }
                 Intent.ACTION_POWER_CONNECTED -> pluggedInAt = ZonedDateTime.now()
                 Intent.ACTION_POWER_DISCONNECTED -> pluggedInAt = null
                 Intent.ACTION_SCREEN_OFF -> task.stop()

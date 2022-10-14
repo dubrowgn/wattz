@@ -2,7 +2,10 @@ package dubrowgn.wattz
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,8 +18,7 @@ const val settingsName = "settings"
 const val settingsUpdateInd = "$namespace.settings-update-ind"
 
 class SettingsActivity : Activity() {
-    private lateinit var battery: Battery
-    private val task = PeriodicTask({ update() }, intervalMs)
+    private val batteryReceiver = BatteryDataReceiver()
 
     private lateinit var charging: TextView
     private lateinit var currentScalar: RadioGroup
@@ -26,6 +28,20 @@ class SettingsActivity : Activity() {
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
+    }
+
+    inner class BatteryDataReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            debug("BatteryDataReceiver.onReceive()")
+
+            if (intent == null)
+                return
+
+            val ind = getString(R.string.indeterminate)
+
+            charging.text = intent.getStringExtra("charging") ?: ind
+            power.text = intent.getStringExtra("power") ?: ind
+        }
     }
 
     private fun loadPrefs() {
@@ -42,37 +58,26 @@ class SettingsActivity : Activity() {
 
     @SuppressLint("ApplySharedPref")
     private fun onChange() {
-        update()
-
         getSharedPreferences(settingsName, MODE_PRIVATE)
             .edit()
-            .putBoolean("invertCurrent", battery.invertCurrent)
-            .putFloat("currentScalar", battery.currentScalar.toFloat())
+            .putBoolean("invertCurrent", invertCurrent.isChecked)
+            .putFloat(
+                "currentScalar",
+                when(currentScalar.checkedRadioButtonId) {
+                    R.id.currentScalar1000 -> 1000f
+                    R.id.currentScalar0_001 -> 0.001f
+                    else -> 1f
+                }
+            )
             .commit()
 
         sendBroadcast(Intent().setPackage(packageName).setAction(settingsUpdateInd))
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun update() {
-        battery.currentScalar = when(currentScalar.checkedRadioButtonId) {
-            R.id.currentScalar1000 -> 1000.0
-            R.id.currentScalar0_001 -> 0.001
-            else -> 1.0
-        }
-        battery.invertCurrent = invertCurrent.isChecked
-
-        val snapshot = battery.snapshot()
-        charging.text = getString(if (snapshot.charging) R.string.yes else R.string.no)
-        power.text = "${fmt(snapshot.watts)}W"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         debug("onCreate()")
 
         super.onCreate(savedInstanceState)
-
-        battery = Battery(this)
 
         setContentView(R.layout.activity_settings)
 
@@ -90,7 +95,7 @@ class SettingsActivity : Activity() {
     override fun onPause() {
         debug("onPause()")
 
-        task.stop()
+        unregisterReceiver(batteryReceiver)
 
         super.onPause()
     }
@@ -100,7 +105,8 @@ class SettingsActivity : Activity() {
 
         super.onResume()
 
-        task.start()
+        registerReceiver(batteryReceiver, IntentFilter(batteryDataResp))
+        sendBroadcast(Intent().setPackage(packageName).setAction(batteryDataReq))
     }
 
     override fun onDestroy() {
