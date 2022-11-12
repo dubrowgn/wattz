@@ -1,0 +1,1 @@
+• Fix an issue that resulted in stale temperature and voltage values - https://github.com/dubrowgn/wattz/issues/24
