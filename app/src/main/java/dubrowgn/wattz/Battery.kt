@@ -6,9 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 
-class Battery(ctx: Context) {
+class Battery(private val ctx: Context) {
     private val mgr = ctx.getSystemService(Activity.BATTERY_SERVICE) as BatteryManager
-    private val intent = ctx.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
     // configuration
     var currentScalar = 1.0
@@ -23,6 +22,7 @@ class Battery(ctx: Context) {
     }
 
     private fun prop(id: String): Long? {
+        val intent = ctx.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         if (intent?.hasExtra(id) != true)
             return null
 
