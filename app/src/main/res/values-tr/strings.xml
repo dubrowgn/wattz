@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Wattz</string>
+    <string name="back">Back</string>
+    <string name="battery">Battery</string>
+    <string name="charging">Charging</string>
+    <string name="chargingSince">Charging Since</string>
+    <string name="current">Current</string>
+    <string name="energy">Energy</string>
+    <string name="indeterminate">-</string>
+    <string name="no">no</string>
+    <string name="power">Power</string>
+    <string name="settings">Settings</string>
+    <string name="temperature">Temperature</string>
+    <string name="timeToFullCharge">Time to Full Charge</string>
+    <string name="voltage">Voltage</string>
+    <string name="yes">yes</string>
+
+    <!-- settings -->
+    <string name="currentScalar">Power Scalar Workaround</string>
+    <string name="currentScalarDesc">When not plugged in, change this scalar until \u0022Power\u0022 is greater than 0W, but less than about 10W.</string>
+    <string name="invertCurrent">Charging Workaround</string>
+    <string name="invertCurrentDesc">When not plugged in, enable this toggle if \u0022Charging\u0022 says \u0022yes\u0022.</string>
+    <string name="workarounds">Workarounds</string>
+    <string name="workaroundsDesc">Many phones do not correctly implement the Android BatteryManager interface, and will report incorrect battery metrics by default. If needed, use the following settings to workaround implementation defects on your phone.</string>
+</resources>
