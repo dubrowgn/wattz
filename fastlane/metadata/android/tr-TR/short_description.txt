@@ -1,1 +1,1 @@
-A battery power status bar indicator
+Pil gücü durum çubuğu göstergesi
