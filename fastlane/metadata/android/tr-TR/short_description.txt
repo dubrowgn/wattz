@@ -1,0 +1,1 @@
+A battery power status bar indicator

@@ -1,0 +1,1 @@
+<i>wattz</i> is a simple battery power indicator for your Android device's status bar, showing the number of watts coming out of, or going into, your battery. Opening the app also shows additional detailed battery metrics.
