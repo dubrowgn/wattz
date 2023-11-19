@@ -1,0 +1,1 @@
+• Add units setting for the status bar indicator - https://github.com/dubrowgn/wattz/issues/15, https://github.com/dubrowgn/wattz/issues/16, https://github.com/dubrowgn/wattz/issues/28
