@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter
 class StatusService : Service() {
     private lateinit var battery: Battery
     private val dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    private var indicatorUnits: String? = null
     private lateinit var noteBuilder: Notification.Builder
     private lateinit var noteMgr: NotificationManager
     private var pluggedInAt: ZonedDateTime? = null
@@ -53,6 +54,7 @@ class StatusService : Service() {
         val settings = getSharedPreferences(settingsName, MODE_MULTI_PROCESS)
         battery.currentScalar = settings.getFloat("currentScalar", 1f).toDouble()
         battery.invertCurrent = settings.getBoolean("invertCurrent", false)
+        indicatorUnits = settings.getString("indicatorUnits", null);
     }
 
     private fun init() {
@@ -79,9 +81,10 @@ class StatusService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        val ind = getString(R.string.indeterminate)
         noteBuilder = Notification.Builder(this, noteChannelId)
-            .setContentTitle("Battery Draw: - W")
-            .setSmallIcon(renderIcon("-", "W"))
+            .setContentTitle("Battery Draw: $ind W")
+            .setSmallIcon(renderIcon(ind, "W"))
             .setContentIntent(noteIntent)
             .setOnlyAlertOnce(true)
 
@@ -183,10 +186,30 @@ class StatusService : Service() {
 
         snapshot = battery.snapshot()
 
-        val txtWatts = fmt(snapshot.watts)
+        val txtLabel = when (indicatorUnits) {
+            "A" -> getString(R.string.current)
+            "Ah" -> getString(R.string.energy)
+            "C" -> getString(R.string.temperature)
+            "V" -> getString(R.string.voltage)
+            "Wh" -> getString(R.string.energy)
+            else -> getString(R.string.power)
+        }
+        val txtValue = fmt( when (indicatorUnits) {
+            "A" -> snapshot.amps
+            "Ah" -> snapshot.energyAmpHours
+            "C" -> snapshot.celsius
+            "V" -> snapshot.volts
+            "Wh" -> snapshot.energyWattHours
+            else -> snapshot.watts
+        })
+        val txtUnits = when (indicatorUnits) {
+            "C" -> "°C"
+            else -> indicatorUnits ?: "W"
+        }
+
         noteBuilder
-            .setContentTitle("Battery Draw: ${txtWatts}W")
-            .setSmallIcon(renderIcon(txtWatts, "w"))
+            .setContentTitle("${getString(R.string.battery)} ${txtLabel}: ${txtValue}${txtUnits}")
+            .setSmallIcon(renderIcon(txtValue, txtUnits))
 
         noteBuilder.setContentText(
             when(val seconds = snapshot.secondsUntilCharged) {

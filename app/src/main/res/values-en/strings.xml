@@ -7,12 +7,14 @@
     <string name="current">Current</string>
     <string name="energy">Energy</string>
     <string name="indeterminate">-</string>
+    <string name="statusBarIndicator">Status Bar Indicator</string>
     <string name="no">no</string>
     <string name="power">Power</string>
     <string name="settings">Settings</string>
     <string name="temperature">Temperature</string>
     <string name="timeToFullCharge">Time to Full Charge</string>
     <string name="voltage">Voltage</string>
+    <string name="units">Units</string>
     <string name="yes">yes</string>
 
     <!-- settings -->

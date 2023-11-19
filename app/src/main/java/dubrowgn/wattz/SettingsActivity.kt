@@ -22,6 +22,7 @@ class SettingsActivity : Activity() {
 
     private lateinit var charging: TextView
     private lateinit var currentScalar: RadioGroup
+    private lateinit var indicatorUnits: RadioLayout
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var invertCurrent: Switch
     private lateinit var power: TextView
@@ -53,6 +54,16 @@ class SettingsActivity : Activity() {
                 else -> R.id.currentScalar1
             }
         )
+        indicatorUnits.check(
+            when (settings.getString("indicatorUnits", null)) {
+                "A" -> R.id.indicatorA
+                "Ah" -> R.id.indicatorAh
+                "C" -> R.id.indicatorC
+                "V" -> R.id.indicatorV
+                "Wh" -> R.id.indicatorWh
+                else -> R.id.indicatorW
+            }
+        )
         invertCurrent.isChecked = settings.getBoolean("invertCurrent", false)
     }
 
@@ -69,6 +80,17 @@ class SettingsActivity : Activity() {
                     else -> 1f
                 }
             )
+            .putString(
+                "indicatorUnits",
+                when (indicatorUnits.checkedRadioButtonId) {
+                    R.id.indicatorA -> "A"
+                    R.id.indicatorAh -> "Ah"
+                    R.id.indicatorC -> "C"
+                    R.id.indicatorV -> "V"
+                    R.id.indicatorWh -> "Wh"
+                    else -> "W"
+                }
+            )
             .commit()
 
         sendBroadcast(Intent().setPackage(packageName).setAction(settingsUpdateInd))
@@ -83,12 +105,14 @@ class SettingsActivity : Activity() {
 
         charging = findViewById(R.id.charging)
         currentScalar = findViewById(R.id.currentScalar)
+        indicatorUnits = findViewById(R.id.indicatorUnits)
         invertCurrent = findViewById(R.id.invertCurrent)
         power = findViewById(R.id.power)
 
         loadPrefs()
 
         currentScalar.setOnCheckedChangeListener { _, _ -> onChange() }
+        indicatorUnits.checkChangedCallback = { _ -> onChange() }
         invertCurrent.setOnCheckedChangeListener { _, _ -> onChange() }
     }
 

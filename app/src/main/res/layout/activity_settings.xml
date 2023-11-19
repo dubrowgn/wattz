@@ -31,14 +31,118 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
-            android:tint="@color/text_on_primary"
             android:contentDescription="@string/back"
             android:onClick="onBack"
             android:padding="@dimen/text_size"
             android:src="@drawable/ico_back"
             app:layout_constraintBottom_toBottomOf="@+id/lblSettings"
             app:layout_constraintStart_toStartOf="@+id/lblSettings"
-            app:layout_constraintTop_toTopOf="@+id/lblSettings" />
+            app:layout_constraintTop_toTopOf="@+id/lblSettings"
+            app:tint="@color/text_on_primary" />
+
+        <TextView
+            android:id="@+id/lblIndicator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_size"
+            android:text="@string/statusBarIndicator"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/h2_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblSettings" />
+
+        <TextView
+            android:id="@+id/lblIndicatorValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size"
+            android:layout_marginTop="@dimen/text_size"
+            android:text="@string/units"
+            android:textColor="@color/label"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/lblCharging"
+            app:layout_constraintTop_toBottomOf="@+id/lblIndicator" />
+
+        <dubrowgn.wattz.RadioLayout
+            android:id="@+id/indicatorUnits"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_size_over_2"
+            android:layout_marginVertical="@dimen/text_size_over_2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblIndicatorValue">
+
+            <RadioButton
+                android:id="@+id/indicatorA"
+                android:layout_width="0dp"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_marginVertical="@dimen/text_size_over_2"
+                android:text="A"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/indicatorAh"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioButton
+                android:id="@+id/indicatorAh"
+                android:layout_width="0dp"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_marginVertical="@dimen/text_size_over_2"
+                android:text="Ah"
+                app:layout_constraintLeft_toRightOf="@+id/indicatorA"
+                app:layout_constraintRight_toLeftOf="@+id/indicatorC"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioButton
+                android:id="@+id/indicatorC"
+                android:layout_width="0dp"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_marginVertical="@dimen/text_size_over_2"
+                android:text="°C"
+                app:layout_constraintLeft_toRightOf="@+id/indicatorAh"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioButton
+                android:id="@+id/indicatorV"
+                android:layout_width="0dp"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_marginVertical="@dimen/text_size_over_2"
+                android:text="V"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/indicatorW"
+                app:layout_constraintTop_toBottomOf="@+id/indicatorA" />
+
+            <RadioButton
+                android:id="@+id/indicatorW"
+                android:layout_width="0dp"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_marginVertical="@dimen/text_size_over_2"
+                android:text="W"
+                app:layout_constraintLeft_toRightOf="@+id/indicatorV"
+                app:layout_constraintRight_toLeftOf="@+id/indicatorWh"
+                app:layout_constraintTop_toBottomOf="@+id/indicatorAh" />
+
+            <RadioButton
+                android:id="@+id/indicatorWh"
+                android:layout_width="0dp"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_marginVertical="@dimen/text_size_over_2"
+                android:text="Wh"
+                app:layout_constraintLeft_toRightOf="@+id/indicatorW"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/indicatorC" />
+
+        </dubrowgn.wattz.RadioLayout>
 
         <TextView
             android:id="@+id/lblWorkarounds"
@@ -51,7 +155,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lblSettings" />
+            app:layout_constraintTop_toBottomOf="@id/indicatorUnits" />
 
         <TextView
             android:id="@+id/workaroundsDesc"
@@ -135,7 +239,7 @@
 
         <RadioGroup
             android:id="@+id/currentScalar"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/text_size_over_2"
             android:layout_marginVertical="@dimen/text_size"
@@ -149,6 +253,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="21sp"
                 android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_weight="1"
                 android:text="1000x" />
 
             <RadioButton
@@ -156,6 +261,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="21sp"
                 android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_weight="1"
                 android:text="1x" />
 
             <RadioButton
@@ -163,6 +269,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="21sp"
                 android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_weight="1"
                 android:text="0.001x" />
         </RadioGroup>
 
