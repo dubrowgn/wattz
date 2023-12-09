@@ -97,7 +97,8 @@ class StatusService : Service() {
                 addAction(Intent.ACTION_POWER_DISCONNECTED)
                 addAction(Intent.ACTION_SCREEN_OFF)
                 addAction(Intent.ACTION_SCREEN_ON)
-            }
+            },
+            RECEIVER_NOT_EXPORTED,
         )
     }
 

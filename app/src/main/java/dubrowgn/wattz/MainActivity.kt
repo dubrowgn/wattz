@@ -1,11 +1,13 @@
 package dubrowgn.wattz
 
+import android.Manifest.permission
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,6 +34,32 @@ class MainActivity : Activity() {
 
     private fun debug(msg: String) {
         Log.d(this::class.java.name, msg)
+    }
+
+    enum class Perm { Granted, Denied, NotAsked }
+
+    private fun getPerm(name: String) : Perm {
+        val settings = getSharedPreferences(settingsName, MODE_PRIVATE)
+        val perm =
+            if (checkSelfPermission(name) == PackageManager.PERMISSION_GRANTED)
+                Perm.Granted
+            else if (settings.getBoolean("${name}_ASKED", false))
+                Perm.Denied
+            else
+                Perm.NotAsked
+
+        debug("getPerm($name) = $perm")
+
+        return perm
+    }
+
+    private fun requestPerm(name: String) {
+        debug("requestPerm($name)")
+        getSharedPreferences(settingsName, MODE_PRIVATE)
+            .edit()
+            .putBoolean("${name}_ASKED", true)
+            .apply()
+        requestPermissions(arrayOf(name), 0)
     }
 
     inner class BatteryDataReceiver : BroadcastReceiver() {
@@ -79,10 +107,13 @@ class MainActivity : Activity() {
         voltage = findViewById(R.id.voltage)
     }
 
+
     private fun init() {
-        if (!serviceRunning()) {
+        if (getPerm(permission.POST_NOTIFICATIONS) == Perm.NotAsked)
+            requestPerm(permission.POST_NOTIFICATIONS)
+
+        if (!serviceRunning())
             startForegroundService(Intent(this, StatusService::class.java))
-        }
 
         initUi()
     }
@@ -114,7 +145,7 @@ class MainActivity : Activity() {
 
         super.onResume()
 
-        registerReceiver(batteryReceiver, IntentFilter(batteryDataResp))
+        registerReceiver(batteryReceiver, IntentFilter(batteryDataResp), RECEIVER_NOT_EXPORTED)
         sendBroadcast(Intent().setPackage(packageName).setAction(batteryDataReq))
     }
 

@@ -129,7 +129,7 @@ class SettingsActivity : Activity() {
 
         super.onResume()
 
-        registerReceiver(batteryReceiver, IntentFilter(batteryDataResp))
+        registerReceiver(batteryReceiver, IntentFilter(batteryDataResp), RECEIVER_NOT_EXPORTED)
         sendBroadcast(Intent().setPackage(packageName).setAction(batteryDataReq))
     }
 
