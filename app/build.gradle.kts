@@ -6,9 +6,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-val version = 14
+val version = 15
 val isDebug = project.gradle.startParameter.taskNames.any {
-        name -> name.lowercase(Locale.getDefault()).contains("debug")
+    name -> name.lowercase(Locale.getDefault()).contains("debug")
 }
 
 fun gitHash(): String {

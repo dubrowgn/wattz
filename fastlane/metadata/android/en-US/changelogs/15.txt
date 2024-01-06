@@ -1,0 +1,2 @@
+• Reduce app APK size by ~58%
+
