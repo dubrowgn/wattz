@@ -54,14 +54,9 @@
             app:layout_constraintTop_toBottomOf="@id/lblSettings" />
 
         <TextView
+            style="@style/Label"
             android:id="@+id/lblIndicatorValue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size"
             android:text="@string/units"
-            android:textColor="@color/label"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/lblCharging"
             app:layout_constraintTop_toBottomOf="@+id/lblIndicator" />
@@ -94,6 +89,7 @@
                 android:layout_marginHorizontal="@dimen/text_size_over_2"
                 android:layout_marginVertical="@dimen/text_size_over_2"
                 android:text="Ah"
+                android:textColorHighlight="#000"
                 app:layout_constraintLeft_toRightOf="@+id/indicatorA"
                 app:layout_constraintRight_toLeftOf="@+id/indicatorC"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -169,14 +165,9 @@
             app:layout_constraintTop_toBottomOf="@id/lblWorkarounds" />
 
         <TextView
+            style="@style/Label"
             android:id="@+id/lblPower"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size"
             android:text="@string/power"
-            android:textColor="@color/label"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/lblCharging"
             app:layout_constraintTop_toBottomOf="@+id/workaroundsDesc" />
@@ -192,14 +183,9 @@
             app:layout_constraintTop_toBottomOf="@+id/lblPower" />
 
         <TextView
+            style="@style/Label"
             android:id="@+id/lblCharging"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/text_size"
-            android:layout_marginTop="@dimen/text_size"
             android:text="@string/charging"
-            android:textColor="@color/label"
-            android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/lblPower"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/workaroundsDesc" />
@@ -215,13 +201,9 @@
             app:layout_constraintTop_toBottomOf="@+id/lblCharging" />
 
         <TextView
+            style="@style/Label"
             android:id="@+id/lblCurrentScalar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_size"
             android:text="@string/currentScalar"
-            android:textColor="@color/label"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/power" />
@@ -274,13 +256,9 @@
         </RadioGroup>
 
         <TextView
+            style="@style/Label"
             android:id="@+id/lblInvertCurrent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_size"
             android:text="@string/invertCurrent"
-            android:textColor="@color/label"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentScalar" />

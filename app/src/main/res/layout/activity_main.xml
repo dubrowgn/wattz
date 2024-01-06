@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primary"
-        android:tint="@color/text_on_primary"
+        android:foregroundTint="@color/text_on_primary"
         android:contentDescription="@string/settings"
         android:onClick="onSettings"
         android:padding="@dimen/text_size"
@@ -42,14 +42,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblPower"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/power"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/lblBattery" />
@@ -65,14 +60,9 @@
         app:layout_constraintTop_toBottomOf="@+id/lblPower" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblCurrent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/current"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/power" />
@@ -88,14 +78,9 @@
         app:layout_constraintTop_toBottomOf="@+id/lblCurrent" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblVoltage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/voltage"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/current" />
@@ -111,14 +96,9 @@
         app:layout_constraintTop_toBottomOf="@+id/lblVoltage" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblEnergy"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/energy"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/centerLine"
         app:layout_constraintTop_toBottomOf="@+id/voltage" />
@@ -134,14 +114,9 @@
         app:layout_constraintTop_toBottomOf="@+id/lblEnergy" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblTemperature"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/temperature"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblBattery" />
@@ -157,14 +132,9 @@
         app:layout_constraintTop_toBottomOf="@+id/lblTemperature" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblCharging"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/charging"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temperature" />
@@ -180,14 +150,9 @@
         app:layout_constraintTop_toBottomOf="@+id/lblCharging" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblChargingSince"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/chargingSince"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/charging" />
@@ -203,14 +168,9 @@
         app:layout_constraintTop_toBottomOf="@+id/lblChargingSince" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/lblTimeToFullCharge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_size"
-        android:layout_marginTop="@dimen/text_size"
         android:text="@string/timeToFullCharge"
-        android:textColor="@color/label"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chargingSince" />

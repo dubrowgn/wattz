@@ -1,7 +1,12 @@
 <resources>
-    <style name="Theme.Wattz" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <color name="background">#ffffff</color>
+    <color name="foreground">#212121</color>
+    <color name="foreground_strong">#000000</color>
+    <style name="Theme.Wattz" parent="android:Theme.DeviceDefault.Light.NoActionBar">
         <item name="android:statusBarColor">@color/primary_variant</item>
         <item name="android:textSize">@dimen/text_size</item>
-        <item name="colorControlActivated">@color/primary</item>
+        <item name="android:colorAccent">@color/primary</item>
+        <item name="android:textColor">@color/foreground</item>
+        <item name="android:windowBackground">@color/background</item>
     </style>
 </resources>

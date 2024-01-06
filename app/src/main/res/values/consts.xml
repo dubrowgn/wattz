@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="h1_size">32sp</dimen>
-    <dimen name="h2_size">20sp</dimen>
-    <dimen name="text_size">16sp</dimen>
-    <dimen name="text_size_over_2">8sp</dimen>
-</resources>
