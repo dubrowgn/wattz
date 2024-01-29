@@ -6,6 +6,7 @@
         <item name="android:statusBarColor">@color/primary_variant</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:colorAccent">@color/primary</item>
+        <item name="android:colorControlActivated">@color/primary</item><!-- samsung, dark mode -->
         <item name="android:textColor">@color/foreground</item>
         <item name="android:windowBackground">@color/background</item>
     </style>
