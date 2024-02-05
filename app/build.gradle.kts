@@ -1,33 +1,8 @@
-import java.io.ByteArrayOutputStream
-import java.util.Locale
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
 
-val version = 16
-val isDebug = project.gradle.startParameter.taskNames.any {
-    name -> name.lowercase(Locale.getDefault()).contains("debug")
-}
-
-fun gitHash(): String {
-    val stdout = ByteArrayOutputStream()
-    exec {
-        commandLine("git", "rev-parse", "--short", "HEAD")
-        standardOutput = stdout
-    }
-
-    return stdout.toString().trim()
-}
-
-fun versionString(): String {
-    return if (isDebug) {
-        "1.$version (${gitHash()})"
-    } else {
-        "1.$version"
-    }
-}
 android {
     compileSdk = 34
 
@@ -35,8 +10,8 @@ android {
         applicationId = "dubrowgn.wattz"
         minSdk = 28
         targetSdk = 34
-        versionCode = version
-        versionName = versionString()
+        versionCode = 16
+        versionName = "1.16"
     }
 
     buildTypes {
