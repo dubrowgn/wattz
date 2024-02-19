@@ -1,0 +1,3 @@
+• Show plug type information when charging
+• Reduce APK weight by ~28%
+

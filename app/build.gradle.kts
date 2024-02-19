@@ -12,8 +12,8 @@ android {
         // work around unused library resources
         resourceConfigurations.addAll(listOf("anydpi", "en"))
         targetSdk = 34
-        versionCode = 17
-        versionName = "1.17"
+        versionCode = 18
+        versionName = "1.18"
     }
 
     buildTypes {
