@@ -147,18 +147,23 @@ class StatusService : Service() {
     }
 
     private fun updateData() {
+        val plugType = snapshot.plugType?.name?.lowercase()
+        val indeterminate = getString(R.string.indeterminate)
+        val no = getString(R.string.no)
+        val yes = getString(R.string.yes)
+
         val intent = Intent()
             .setPackage(packageName)
             .setAction(batteryDataResp)
             .putExtra("charging",
                 when (snapshot.charging) {
-                    true -> getString(R.string.yes)
-                    false -> getString(R.string.no)
+                    true -> if (plugType == null) yes else "$yes ($plugType)"
+                    false -> no
                 }
             )
             .putExtra("chargingSince",
                 when (val pluggedInAt = pluggedInAt) {
-                    null -> getString(R.string.indeterminate)
+                    null -> indeterminate
                     else -> LocalDateTime
                         .ofInstant(pluggedInAt.toInstant(), pluggedInAt.zone)
                         .format(dateFmt)
@@ -172,7 +177,7 @@ class StatusService : Service() {
             .putExtra("temperature", fmt(snapshot.celsius) + "°C")
             .putExtra("timeToFullCharge",
                 when (val seconds = snapshot.secondsUntilCharged) {
-                    null -> getString(R.string.indeterminate)
+                    null -> indeterminate
                     0.0 -> "fully charged"
                     else -> fmtSeconds(seconds)
                 }

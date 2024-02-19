@@ -11,6 +11,7 @@ class BatterySnapshot(
     val currentRaw: Long?,
     val energyRaw: Long?,
     val isChargingRaw: Boolean,
+    val plugType: PlugType?,
     val tempRaw: Long?,
     val voltsRaw: Long?,
 ) {

@@ -6,6 +6,27 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 
+enum class PlugType {
+    Ac,
+    Dock,
+    Unknown,
+    Usb,
+    Wireless;
+
+    companion object {
+        fun fromRaw(plugType: Int?): PlugType? {
+            return when (plugType) {
+                null, 0 -> null
+                BatteryManager.BATTERY_PLUGGED_AC -> Ac
+                BatteryManager.BATTERY_PLUGGED_DOCK -> Dock
+                BatteryManager.BATTERY_PLUGGED_USB -> Usb
+                BatteryManager.BATTERY_PLUGGED_WIRELESS -> Wireless
+                else -> Unknown
+            }
+        }
+    }
+}
+
 class Battery(private val ctx: Context) {
     private val mgr = ctx.getSystemService(Activity.BATTERY_SERVICE) as BatteryManager
 
@@ -41,6 +62,7 @@ class Battery(private val ctx: Context) {
             energyRaw = prop(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER),
             invertCurrent = invertCurrent,
             isChargingRaw = mgr.isCharging,
+            plugType = PlugType.fromRaw(prop(BatteryManager.EXTRA_PLUGGED)?.toInt()),
             tempRaw = prop(BatteryManager.EXTRA_TEMPERATURE),
             voltsRaw = prop(BatteryManager.EXTRA_VOLTAGE),
         )
