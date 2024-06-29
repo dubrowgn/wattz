@@ -111,7 +111,11 @@ class StatusService : Service() {
         loadSettings()
         task.start()
 
-        startForeground(noteId, noteBuilder.build())
+        try {
+            startForeground(noteId, noteBuilder.build())
+        } catch (e: Exception) {
+            error("Failed to foreground StatusService: ${e.message}")
+        }
 
         return START_STICKY;
     }
