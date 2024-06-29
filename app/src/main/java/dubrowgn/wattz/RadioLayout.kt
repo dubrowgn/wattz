@@ -19,10 +19,6 @@ class RadioLayout : ConstraintLayout {
     private val radios = ArrayList<RadioButton>()
     private var updateInProgress = false
 
-    private fun debug(msg: String) {
-        Log.d(this::class.java.name, msg)
-    }
-
     fun check(id: Int) {
         activateRadio(findViewById(id))
     }
@@ -46,8 +42,6 @@ class RadioLayout : ConstraintLayout {
     }
 
     override fun onViewAdded(view: View?) {
-        debug("onViewAdded()")
-
         super.onViewAdded(view)
 
         val rb = view as? RadioButton
