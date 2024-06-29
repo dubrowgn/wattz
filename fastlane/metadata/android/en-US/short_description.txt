@@ -1,1 +1,1 @@
-A battery power status bar indicator
+A real time battery power consumption and charging indicator in your status bar

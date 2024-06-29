@@ -1,1 +1,20 @@
-<i>wattz</i> is a simple battery power indicator for your Android device's status bar, showing the number of watts coming out of, or going into, your battery. Opening the app also shows additional detailed battery metrics.
+<i>Wattz</i> is a simple battery indicator. It shows one of several real time battery metrics right in your status bar. Open the app to see detailed battery metrics and and edit your settings.
+
+Notification permissions are required to show the indicator in the status bar. Please open the app once to automatically start the indicator service.
+
+This app respects your privacy!
+• No unnecessary permissions
+• No ads
+• No collection of user data of any kind
+• No sharing data with third parties
+
+Detailed battery metrics include:
+• Power (watts)
+• Current (amps)
+• Voltage (volts)
+• Energy Level (watt-hours and amp-hours)
+• Temperature (celsius)
+• Charge Level (percent)
+• Is Charging (yes/no)
+• Charging Since (date/time)
+• Time to Full Charge (duration)
