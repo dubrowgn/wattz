@@ -117,9 +117,9 @@
         style="@style/Label"
         android:id="@+id/lblTemperature"
         android:text="@string/temperature"
-        app:layout_constraintStart_toStartOf="@+id/centerLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblBattery" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
+        app:layout_constraintTop_toBottomOf="@+id/energy" />
 
     <TextView
         android:id="@+id/temperature"
@@ -127,9 +127,27 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/text_size"
         android:text="@string/indeterminate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/centerLine"
+        app:layout_constraintTop_toBottomOf="@+id/lblTemperature" />
+
+    <TextView
+        style="@style/Label"
+        android:id="@+id/lblChargeLevel"
+        android:text="@string/chargeLevel"
         app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblTemperature" />
+        app:layout_constraintTop_toBottomOf="@+id/lblBattery" />
+
+    <TextView
+        android:id="@+id/chargeLevel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/text_size"
+        android:text="@string/indeterminate"
+        app:layout_constraintStart_toStartOf="@+id/centerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblChargeLevel" />
 
     <TextView
         style="@style/Label"
@@ -137,7 +155,7 @@
         android:text="@string/charging"
         app:layout_constraintStart_toStartOf="@+id/centerLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+        app:layout_constraintTop_toBottomOf="@+id/chargeLevel" />
 
     <TextView
         android:id="@+id/charging"

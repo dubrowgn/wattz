@@ -23,6 +23,7 @@ const val noteId = 1
 class MainActivity : Activity() {
     private val batteryReceiver = BatteryDataReceiver()
 
+    private lateinit var chargeLevel: TextView
     private lateinit var charging: TextView
     private lateinit var chargingSince: TextView
     private lateinit var current: TextView
@@ -71,6 +72,7 @@ class MainActivity : Activity() {
 
             val ind = getString(R.string.indeterminate)
 
+            chargeLevel.text = intent.getStringExtra("chargeLevel") ?: ind
             charging.text = intent.getStringExtra("charging") ?: ind
             chargingSince.text = intent.getStringExtra("chargingSince") ?: ind
             current.text = intent.getStringExtra("current") ?: ind
@@ -97,6 +99,7 @@ class MainActivity : Activity() {
     private fun initUi() {
         setContentView(R.layout.activity_main)
 
+        chargeLevel = findViewById(R.id.chargeLevel)
         charging = findViewById(R.id.charging)
         chargingSince = findViewById(R.id.chargingSince)
         current = findViewById(R.id.current)

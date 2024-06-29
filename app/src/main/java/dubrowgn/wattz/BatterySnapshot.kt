@@ -10,18 +10,12 @@ class BatterySnapshot(
     val chargeTimeRemainingRaw: Long,
     val currentRaw: Long?,
     val energyRaw: Long?,
+    val level: Double?,
     val isChargingRaw: Boolean,
     val plugType: PlugType?,
     val tempRaw: Long?,
     val voltsRaw: Long?,
 ) {
-    private fun Double?.times(v: Double?) : Double? {
-        if (v == null)
-            return null
-
-        return this?.times(v)
-    }
-
     private fun fromMicros(v: Double?) : Double? {
         return v?.div(1_000_000.0)
     }
@@ -45,6 +39,8 @@ class BatterySnapshot(
 
     val energyAmpHours : Double? get() = fromMicros(energyRaw?.toDouble())
     val energyWattHours : Double? get() = volts?.times(energyAmpHours)
+
+    val levelPercent : Double? get() = level?.times(100.0)
 
     val celsius : Double? get() = tempRaw?.toDouble()?.div(10.0)
 

@@ -153,6 +153,7 @@ class StatusService : Service() {
     private fun updateData() {
         val plugType = snapshot.plugType?.name?.lowercase()
         val indeterminate = getString(R.string.indeterminate)
+        val fullyCharged = getString(R.string.fullyCharged)
         val no = getString(R.string.no)
         val yes = getString(R.string.yes)
 
@@ -165,6 +166,7 @@ class StatusService : Service() {
                     false -> no
                 }
             )
+            .putExtra("chargeLevel", fmt(snapshot.levelPercent) + "%")
             .putExtra("chargingSince",
                 when (val pluggedInAt = pluggedInAt) {
                     null -> indeterminate
@@ -182,7 +184,7 @@ class StatusService : Service() {
             .putExtra("timeToFullCharge",
                 when (val seconds = snapshot.secondsUntilCharged) {
                     null -> indeterminate
-                    0.0 -> "fully charged"
+                    0.0 -> fullyCharged
                     else -> fmtSeconds(seconds)
                 }
             )
@@ -202,6 +204,7 @@ class StatusService : Service() {
             "C" -> getString(R.string.temperature)
             "V" -> getString(R.string.voltage)
             "Wh" -> getString(R.string.energy)
+            "%" -> getString(R.string.chargeLevel)
             else -> getString(R.string.power)
         }
         val txtValue = fmt( when (indicatorUnits) {
@@ -210,6 +213,7 @@ class StatusService : Service() {
             "C" -> snapshot.celsius
             "V" -> snapshot.volts
             "Wh" -> snapshot.energyWattHours
+            "%" -> snapshot.levelPercent
             else -> snapshot.watts
         })
         val txtUnits = when (indicatorUnits) {

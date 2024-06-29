@@ -138,6 +138,17 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/indicatorC" />
 
+            <RadioButton
+                android:id="@+id/indicatorPerc"
+                android:layout_width="0dp"
+                android:layout_height="21sp"
+                android:layout_marginHorizontal="@dimen/text_size_over_2"
+                android:layout_marginVertical="@dimen/text_size_over_2"
+                android:text="%"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/indicatorW"
+                app:layout_constraintTop_toBottomOf="@+id/indicatorV" />
+
         </dubrowgn.wattz.RadioLayout>
 
         <TextView

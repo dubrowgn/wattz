@@ -13,7 +13,6 @@ import android.widget.RadioGroup
 import android.widget.Switch
 import android.widget.TextView
 
-
 const val settingsName = "settings"
 const val settingsUpdateInd = "$namespace.settings-update-ind"
 
@@ -61,6 +60,7 @@ class SettingsActivity : Activity() {
                 "C" -> R.id.indicatorC
                 "V" -> R.id.indicatorV
                 "Wh" -> R.id.indicatorWh
+                "%" -> R.id.indicatorPerc
                 else -> R.id.indicatorW
             }
         )
@@ -88,6 +88,7 @@ class SettingsActivity : Activity() {
                     R.id.indicatorC -> "C"
                     R.id.indicatorV -> "V"
                     R.id.indicatorWh -> "Wh"
+                    R.id.indicatorPerc -> "%"
                     else -> "W"
                 }
             )

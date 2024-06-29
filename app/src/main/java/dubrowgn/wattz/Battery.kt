@@ -55,11 +55,15 @@ class Battery(private val ctx: Context) {
     }
 
     fun snapshot(): BatterySnapshot {
+        val levelScale = prop(BatteryManager.EXTRA_SCALE)?.toDouble()
+        val level = prop(BatteryManager.EXTRA_LEVEL)?.toDouble()
+
         return BatterySnapshot(
             chargeTimeRemainingRaw = mgr.computeChargeTimeRemaining(),
             currentRaw = prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW),
             currentScalar = currentScalar,
             energyRaw = prop(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER),
+            level = level.div(levelScale),
             invertCurrent = invertCurrent,
             isChargingRaw = mgr.isCharging,
             plugType = PlugType.fromRaw(prop(BatteryManager.EXTRA_PLUGGED)?.toInt()),
