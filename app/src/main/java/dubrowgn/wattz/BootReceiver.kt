@@ -32,6 +32,10 @@ class BootReceiver : BroadcastReceiver() {
         }
 
         debug("starting status service...")
-        context.startForegroundService(Intent(context, StatusService::class.java))
+        try {
+            context.startForegroundService(Intent(context, StatusService::class.java))
+        } catch (e: Exception) {
+            error("Failed to start StatusService: ${e.message}")
+        }
     }
 }
