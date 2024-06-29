@@ -1,0 +1,3 @@
+• Add charge level information
+• Suppress potential crash when starting status indicator on newer Android devices
+
