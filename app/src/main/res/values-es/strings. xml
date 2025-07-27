@@ -23,7 +23,7 @@
     <string name="currentScalar">Escala de potencia alternativa</string>
     <string name="currentScalarDesc">Cuando no esté enchufado, cambia esta unidad de escala hasta que \u0022Power\u0022 sea mayor de 0W, pero menor de 10W.</string>
     <string name="invertCurrent">Solución alternativa de carga</string>
-    <string name="invertCurrentDesc">Cuando no esté enchufado, activar sí \u0022Charging\u0022 dice \u0022yes\u0022.</string>
+    <string name="invertCurrentDesc">Cuando no esté enchufado, activar si \u0022Charging\u0022 dice \u0022yes\u0022.</string>
     <string name="workarounds">Soluciones alternativas</string>
     <string name="workaroundsDesc">Muchos teléfonos no implementan correctamente la interfaz de Android BatteryManager y reportarán métricas de batería incorrectas de forma predeterminada. Si es necesario, use la siguiente configuración para solucionar los defectos de implementación en el teléfono.</string>
 </resources>
