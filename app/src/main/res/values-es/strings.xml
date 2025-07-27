@@ -11,7 +11,7 @@
     <string name="indeterminate">-</string>
     <string name="statusBarIndicator">Indicador de barra de estado</string>
     <string name="no">No</string>
-    <string name="power">Energía</string>
+    <string name="power">Potencia</string>
     <string name="settings">Ajustes</string>
     <string name="temperature">Temperatura</string>
     <string name="timeToFullCharge">Tiempo hasta completar la carga/string>
