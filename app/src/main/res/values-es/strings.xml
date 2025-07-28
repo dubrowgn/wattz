@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Wattz</string>
+    <string name="back">Atrás</string>
+    <string name="battery">Batería</string>
+    <string name="charging">Cargando</string>
+    <string name="chargingSince">Cargando desde</string>
+    <string name="chargeLevel">Nivel de carga</string>
+    <string name="current">Actual</string>
+    <string name="energy">Energía</string>
+    <string name="fullyCharged">completamente cargado</string>
+    <string name="indeterminate">-</string>
+    <string name="statusBarIndicator">Indicador de barra de estado</string>
+    <string name="no">No</string>
+    <string name="power">Consumo</string>
+    <string name="settings">Ajustes</string>
+    <string name="temperature">Temperatura</string>
+    <string name="timeToFullCharge">Tiempo hasta completar la carga</string>
+    <string name="voltage">Voltaje</string>
+    <string name="units">Unidades</string>
+    <string name="yes">Sí</string>
+
+    <!-- settings -->
+    <string name="currentScalar">Escala de potencia alternativa</string>
+    <string name="currentScalarDesc">Cuando no esté enchufado, cambia esta unidad de escala hasta que \u0022Consumo\u0022 sea mayor de 0W, pero menor de 10W.</string>
+    <string name="invertCurrent">Solución alternativa de carga</string>
+    <string name="invertCurrentDesc">Cuando no esté enchufado, activar si \u0022Cargando\u0022 dice \u0022Sí\u0022.</string>
+    <string name="workarounds">Soluciones alternativas</string>
+    <string name="workaroundsDesc">Muchos teléfonos no implementan correctamente la interfaz de Android BatteryManager y reportarán métricas de batería incorrectas de forma predeterminada. Si es necesario, use la siguiente configuración para solucionar los defectos de implementación en el teléfono.</string>
+</resources>
