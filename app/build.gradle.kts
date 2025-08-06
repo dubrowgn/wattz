@@ -10,7 +10,7 @@ android {
         applicationId = "dubrowgn.wattz"
         minSdk = 28 // BatteryManager.computeChargeTimeRemaining()
         // work around unused library resources
-        resourceConfigurations.addAll(listOf("anydpi", "en"))
+        resourceConfigurations.addAll(listOf("anydpi", "en", "es"))
         targetSdk = 34
         versionCode = 19
         versionName = "1.19"
