@@ -1,7 +1,10 @@
 # Wattz
 
-[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="64">](https://play.google.com/store/apps/details?id=dubrowgn.wattz)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="64">](https://f-droid.org/packages/dubrowgn.wattz/)
+
+Note: Due to the unreasonable requirements and burden of shipping an app on Google's
+Play store, Wattz is no longer available there. It can still be installed via
+F-Droid.
 
 *Wattz* is a simple battery indicator. It shows one of several real time battery
 metrics right in your status bar. Open the app to see detailed battery metrics
@@ -49,10 +52,14 @@ Detailed battery metrics include:
 
 2. Why does my external power meter show different power numbers than *Wattz*?
 
-    Wattz can only measure power coming into or out of the battery management system. Your external meter is measuring this plus any power your phone is using in addition to that.
+    *Wattz* can only measure power coming into or out of the battery management system. In addition to this amount, your external meter is also measuring any power your phone is actively using at the time.
 
 3. Why isn't the indicator showing up in my status bar?
 
     *Wattz* needs notification permissions on newer Android phones in order to show the indicator. Make sure to open *Wattz* at least once, where it should prompt you to grant it permissions. Otherwise, check the Android app settings to ensure *Wattz* has notification permissions.
 
    Keep in mind, Android can revoke these permissions at any time without telling you, so you may need to re-enable them periodically.
+
+4. Why does *Wattz* show a negative number while charging?
+
+    *Wattz* is a power consumption indicator, so positive values are associated with power being consumed. Charging, effectively the oposite, is thus negative. While many people successfuly use *Wattz* as a charging indicator, this was not its original purpose.
